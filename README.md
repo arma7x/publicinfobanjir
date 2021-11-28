@@ -33,6 +33,7 @@ RainAndRiver::getRiverLevel($state);
 
 ## $state list:
 
+```
 KDH => Kedah
 PNG => Pulau Pinang
 PRK => Perak
@@ -48,3 +49,5 @@ KEL => Kelantan
 SRK => Sarawak
 SAB => Sabah
 WLP => Wilayah Persekutuan Labuan
+
+```
