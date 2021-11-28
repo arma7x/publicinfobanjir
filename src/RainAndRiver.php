@@ -52,10 +52,11 @@ class RainAndRiver {
               } else if ($index >= 5 && $index <= 10) {
                 array_push($daily, $child1->textContent);
               } else {
-                if ($index == 11)
-                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6])] = $val;
-                else if ($index == 12)
-                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7])] = $val;
+                if ($index == 11) {
+                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6] ?? 'from_midnight')] = $val;
+                } else if ($index == 12) {
+                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7] ?? 'one_hour_now')] = $val;
+                }
               }
               $index++;
               if ($index == 13) {
@@ -113,10 +114,13 @@ class RainAndRiver {
             if ($idx1 > 0) {
               $data = [];
               foreach ($child1->childNodes as $idx2 => $child2) {
-                if ($idx2 < 8)
+                if ($idx2 < 8) {
+                  $name = $headers[$idx2] ?? $idx2;
                   $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2])] = trim($child2->textContent);
-                else
+                } else {
+                  $name = $headers[$idx2] ?? 'daily';
                   $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8])] = trim($child2->textContent);
+                }
               }
               array_push($temp_result, $data);
             }
