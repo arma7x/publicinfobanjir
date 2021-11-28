@@ -1,28 +1,31 @@
-# PHP Boilerplate
+# publicinfobanjir.water.gov.my scrapper
 
-A boilerplate for new composer based PHP projects.
+Public Infobanjir system works by collecting real-time rainfall water level data from nearly 200 hydrological stations across the country. Hydrological data from each station is transmitted to the Telemetry Database / servers in each state and then transmitted to Infobanjir. Initially, the infobanjir system operations focused or monitored and used internally, i.e: rainfall information and water levels would be monitored by DID officers only.
 
 ## Getting started
 
-```bash
-# With composer
-$ composer create-project kreait/php-boilerplate new-project
-
-# With git
-$ git clone git@github.com:kreait/php-boilerplate.git new-project && cd $_ && rm -rf .git && git init
 ```
+use PublicInfoBanjir\RainAndRiver;
 
-### Update `composer.json`
+RainAndRiver::getRainLevel($state);
+RainAndRiver::getRiverLevel($state);
 
-Replace the Namespaces in the `autoload` and `autoload-dev` sections with your project's namespaces
-and run `composer dump-autoload`.
+$state list:
 
-### (Optional) Update `.gitattributes`
+KDH => Kedah
+PNG => Pulau Pinang
+PRK => Perak
+SEL => Selangor
+WLH => Wilayah Persekutuan Kuala Lumpur
+PTJ => Wilayah Persekutuan Putrajaya
+NSN => Negeri Sembilan
+MLK => Melaka
+JHR => Johor
+PHG => Pahang
+TRG => Terengganu
+KEL => Kelantan
+SRK => Sarawak
+SAB => Sabah
+WLP => Wilayah Persekutuan Labuan
 
-Remove the comments in `.gitattributes` so that unneeded files for your package won't get included in your releases.
-
-### (Optional) Add `composer.lock` to the `.gitignore` file
-
-If you're creating an application instead of a library, it is considered good practice to commit the `composer.lock` file together with the rest of the code.
-
-### Start coding! :smile:
+```
