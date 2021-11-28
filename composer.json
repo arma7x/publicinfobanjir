@@ -1,0 +1,32 @@
+{
+    "name": "arma7x/publicinfobanjir",
+    "description": "All data scrap from https://publicinfobanjir.water.gov.my/",
+    "keywords": ["publicinfobanjir.water.gov.my"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "guzzlehttp/guzzle": "^6.5",
+        "symfony/css-selector": "^4.4",
+        "symfony/dom-crawler": "^4.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "friendsofphp/php-cs-fixer": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PublicInfoBanjir\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vendor\\Package\\": "tests"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.2"
+        },
+        "sort-packages": true
+    }
+}
