@@ -118,9 +118,9 @@ class RainAndRiver {
               $data = [];
               foreach ($child1->childNodes as $idx2 => $child2) {
                 if ($idx2 < 8)
-                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2] ?? $idx2)] = trim($child2->textContent);
+                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2] ?? (string) $idx2)] = trim($child2->textContent);
                 else
-                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8] ?? $idx2)] = trim($child2->textContent);
+                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8] ?? (string) $idx2)] = trim($child2->textContent);
               }
               array_push($temp_result, $data);
             }
