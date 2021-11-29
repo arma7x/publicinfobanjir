@@ -24,10 +24,10 @@ Public Infobanjir system works by collecting real-time rainfall water level data
 use PublicInfoBanjir\RainAndRiver;
 
 // https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
-RainAndRiver::getRainLevel($state, $html);
+RainAndRiver::getRainLevel($state, $html = false);
 
 // https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
-RainAndRiver::getRiverLevel($state, $html);
+RainAndRiver::getRiverLevel($state, $html = false);
 
 ```
 
@@ -52,8 +52,8 @@ SAB => Sabah
 WLP => Wilayah Persekutuan Labuan
 
 ### $html
-0 json
-1 html
+false json
+true html
 
 ```
 
