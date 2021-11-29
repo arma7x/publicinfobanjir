@@ -24,16 +24,17 @@ Public Infobanjir system works by collecting real-time rainfall water level data
 use PublicInfoBanjir\RainAndRiver;
 
 // https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
-RainAndRiver::getRainLevel($state);
+RainAndRiver::getRainLevel($state, $html);
 
 // https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
-RainAndRiver::getRiverLevel($state);
+RainAndRiver::getRiverLevel($state, $html);
 
 ```
 
-## $state list:
+## Parameter:
 
 ```
+### $state
 KDH => Kedah
 PNG => Pulau Pinang
 PRK => Perak
@@ -49,5 +50,23 @@ KEL => Kelantan
 SRK => Sarawak
 SAB => Sabah
 WLP => Wilayah Persekutuan Labuan
+
+### $html
+0 json
+1 html
+
+```
+
+## Example output:
+
+```
+// https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
+https://malaysiaapi.herokuapp.com/banjir/v1/river?state=KEL&html=0
+https://malaysiaapi.herokuapp.com/banjir/v1/river?state=KEL&html=1
+
+// https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
+https://malaysiaapi.herokuapp.com/banjir/v1/rain?state=KEL&html=0
+https://malaysiaapi.herokuapp.com/banjir/v1/rain?state=KEL&html=1
+
 
 ```
