@@ -31,17 +31,18 @@ class RainAndRiver {
                 if (strlen($val) > 0)
                   array_push($headers, $val);
               }
-              $results['headers'] = $headers;
+              //$results['headers'] = $headers;
             } else if ($idx1 == 3) {
               foreach($child1->childNodes as $idx2 => $child2) {
                 $val = trim($child2->textContent);
                 if (strlen($val) > 0)
                   array_push($thresholds, $val);
               }
-              $results['daily'] = $thresholds;
+              //$results['daily'] = $thresholds;
             }
           }
         } else if ($idx === 1) {
+          $h = ["No.","Station ID","Station","District","Last Updated","Daily Rainfall","Rainfall from Midnight","Total 1 Hour(Now)"];
           $data = [];
           $index = 0;
           $daily = [];
@@ -50,18 +51,18 @@ class RainAndRiver {
             $val = trim($child1->textContent);
             if (strlen($val) > 0) {
               if ($index <= 4) {
-                $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$index] ?? $index)] = $val;
+                $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $h[$index])] = $val;
               } else if ($index >= 5 && $index <= 10) {
                 array_push($daily, $child1->textContent);
               } else {
                 if ($index == 11)
-                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6] ?? 'rainfall_from_Midnight')] = $val;
+                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $h[6])] = $val;
                 else if ($index == 12)
-                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7] ?? 'total_1_hour_now')] = $val;
+                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $h[7])] = $val;
               }
               $index++;
               if ($index == 13) {
-                $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[5] ?? 'daily')] = $daily;
+                $temp_result[preg_replace("/[^a-zA-Z]+/", "", $h[5])] = $daily;
                 array_push($data, $temp_result);;
                 $index = 0;
                 $daily = [];
@@ -102,25 +103,27 @@ class RainAndRiver {
                 if (strlen($val) > 0)
                   array_push($headers, $val);
               }
-              $results['headers'] = $headers;
+              //$results['headers'] = $headers;
             } else if ($idx1 == 4) {
               foreach($child1->childNodes as $idx2 => $child2) {
                 $val = trim($child2->textContent);
                 if (strlen($val) > 0)
                   array_push($thresholds, $val);
               }
-              $results['thresholds'] = $thresholds;
+              //$results['thresholds'] = $thresholds;
             }
           }
         } else if ($idx === 1) {
+          $h = ["No.","Station ID","Station Name","District","Main Basin","Sub River Basin","Last Updated","Water Level (m)(Graph)","Threshold"];
+          $t = ["Normal","Alert","Warning","Danger"];
           foreach($child->childNodes as $idx1 => $child1) {
             if ($idx1 > 0) {
               $data = [];
               foreach ($child1->childNodes as $idx2 => $child2) {
                 if ($idx2 < 8)
-                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2] ?? (string) $idx2)] = trim($child2->textContent);
+                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $h[$idx2])] = trim($child2->textContent);
                 else
-                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8] ?? (string) $idx2)] = trim($child2->textContent);
+                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $t[$idx2 - 8])] = trim($child2->textContent);
               }
               array_push($temp_result, $data);
             }
