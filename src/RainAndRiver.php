@@ -50,18 +50,18 @@ class RainAndRiver {
             $val = trim($child1->textContent);
             if (strlen($val) > 0) {
               if ($index <= 4) {
-                $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$index])] = $val;
+                $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$index] ?? $index)] = $val;
               } else if ($index >= 5 && $index <= 10) {
                 array_push($daily, $child1->textContent);
               } else {
                 if ($index == 11)
-                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6])] = $val;
+                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6] ?? 'rainfall_from_Midnight')] = $val;
                 else if ($index == 12)
-                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7])] = $val;
+                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7] ?? 'total_1_hour_now')] = $val;
               }
               $index++;
               if ($index == 13) {
-                $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[5])] = $daily;
+                $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[5] ?? 'daily')] = $daily;
                 array_push($data, $temp_result);;
                 $index = 0;
                 $daily = [];
@@ -118,9 +118,9 @@ class RainAndRiver {
               $data = [];
               foreach ($child1->childNodes as $idx2 => $child2) {
                 if ($idx2 < 8)
-                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2])] = trim($child2->textContent);
+                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2] ?? $idx2)] = trim($child2->textContent);
                 else
-                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8])] = trim($child2->textContent);
+                  $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8] ?? $idx2)] = trim($child2->textContent);
               }
               array_push($temp_result, $data);
             }
