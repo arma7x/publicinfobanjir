@@ -8,13 +8,15 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class RainAndRiver {
 
-  static public function getRainLevel(string $state): array
+  static public function getRainLevel(string $state, bool $raw = false)
   {
     try {
       // https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
       $client = new Client(['base_uri' => 'http://publicinfobanjir.water.gov.my']);
       $res = $client->get('/wp-content/themes/shapely/agency/searchresultrainfall.php', ['query' => ['state' => $state, 'district' => 'ALL', 'station' => 'ALL', 'language' => '1', 'loginStatus' => '0'], 'debug' => false]);
       $html = '<!DOCTYPE html><html><body>'.(string) $res->getBody().'</body></html>';
+      if ($raw)
+        return $html;
       $crawler = new Crawler($html);
       $table = $crawler->filter('table');
       $headers = [];
@@ -52,11 +54,10 @@ class RainAndRiver {
               } else if ($index >= 5 && $index <= 10) {
                 array_push($daily, $child1->textContent);
               } else {
-                if ($index == 11) {
-                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6] ?? 'from_midnight')] = $val;
-                } else if ($index == 12) {
-                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7] ?? 'one_hour_now')] = $val;
-                }
+                if ($index == 11)
+                  $temp_result[preg_replace("/[^a-zA-Z]+/", "", $headers[6])] = $val;
+                else if ($index == 12)
+                  $temp_result[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[7])] = $val;
               }
               $index++;
               if ($index == 13) {
@@ -77,13 +78,15 @@ class RainAndRiver {
     }
   }
 
-  static public function getRiverLevel(string $state): array
+  static public function getRiverLevel(string $state, bool $raw = false)
   {
     try {
       // https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
       $client = new Client(['base_uri' => 'http://publicinfobanjir.water.gov.my']);
       $res = $client->get('/aras-air/data-paras-air/aras-air-data/', ['query' => ['state' => $state, 'district' => 'ALL', 'station' => 'ALL', 'lang' => 'en'], 'debug' => false]);
       $html = '<!DOCTYPE html><html><body>'.(string) $res->getBody().'</body></html>';
+      if ($raw)
+        return $html;
       $crawler = new Crawler($html);
       $table = $crawler->filter('table');
       $headers = [];
@@ -114,13 +117,10 @@ class RainAndRiver {
             if ($idx1 > 0) {
               $data = [];
               foreach ($child1->childNodes as $idx2 => $child2) {
-                if ($idx2 < 8) {
-                  $name = $headers[$idx2] ?? $idx2;
+                if ($idx2 < 8)
                   $data[preg_replace("/[^a-zA-Z0-9]+/", "", $headers[$idx2])] = trim($child2->textContent);
-                } else {
-                  $name = $headers[$idx2] ?? 'daily';
+                else
                   $data[preg_replace("/[^a-zA-Z0-9]+/", "", $thresholds[$idx2 - 8])] = trim($child2->textContent);
-                }
               }
               array_push($temp_result, $data);
             }
