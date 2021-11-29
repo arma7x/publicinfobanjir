@@ -31,7 +31,7 @@ RainAndRiver::getRiverLevel($state, $html = false);
 
 ```
 
-## Parameter:
+## Parameter
 
 ```
 ### $state
@@ -57,7 +57,7 @@ true html
 
 ```
 
-## Example output:
+## Demo
 
 ```
 // https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
