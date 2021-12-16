@@ -15,6 +15,7 @@ class RainAndRiver {
       $client = new Client(['base_uri' => 'http://publicinfobanjir.water.gov.my']);
       $res = $client->get('/wp-content/themes/shapely/agency/searchresultrainfall.php', ['query' => ['state' => $state, 'district' => 'ALL', 'station' => 'ALL', 'language' => '1', 'loginStatus' => '0'], 'debug' => false]);
       $html = '<!DOCTYPE html><html><body>'.(string) $res->getBody().'</body></html>';
+      $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
       if ($raw)
         return $html;
       $crawler = new Crawler($html);
@@ -86,6 +87,7 @@ class RainAndRiver {
       $client = new Client(['base_uri' => 'http://publicinfobanjir.water.gov.my']);
       $res = $client->get('/aras-air/data-paras-air/aras-air-data/', ['query' => ['state' => $state, 'district' => 'ALL', 'station' => 'ALL', 'lang' => 'en'], 'debug' => false]);
       $html = '<!DOCTYPE html><html><body>'.(string) $res->getBody().'</body></html>';
+      $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
       if ($raw)
         return $html;
       $crawler = new Crawler($html);
