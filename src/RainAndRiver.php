@@ -8,7 +8,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class RainAndRiver {
 
-  static public function getRainLevel(string $state, bool $raw = false)
+  static public function getRainLevel(string $state = 'KEL', bool $raw = false)
   {
     try {
       // https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
@@ -80,7 +80,7 @@ class RainAndRiver {
     }
   }
 
-  static public function getRiverLevel(string $state, bool $raw = false)
+  static public function getRiverLevel(string $state = 'KEL', bool $raw = false)
   {
     try {
       // https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
