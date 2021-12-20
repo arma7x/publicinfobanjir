@@ -23,10 +23,10 @@ Public Infobanjir system works by collecting real-time rainfall water level data
 ```
 use PublicInfoBanjir\RainAndRiver;
 
-// https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
+// Rain data from https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=KEL&lang=en
 RainAndRiver::getRainLevel($state, $html = false);
 
-// https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
+// River data from https://publicinfobanjir.water.gov.my/aras-air/data-paras-air/?state=KEL&lang=en
 RainAndRiver::getRiverLevel($state, $html = false);
 
 ```
