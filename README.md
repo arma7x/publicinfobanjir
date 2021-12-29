@@ -70,3 +70,41 @@ https://malaysiaapi.herokuapp.com/banjir/v1/rain?state=KEL&html=1
 
 
 ```
+
+## Extra:
+
+```
+var url = new URL(document.location.toString());
+url.searchParams.set('html', 0);
+fetch(url.toString())
+.then((response) => {
+  return response.json();
+})
+.then((json) => {
+  console.clear();
+  const district = {};
+  json.data.forEach((d) => {
+    var total = 0;
+    if (d['DailyRainfall'] != null && d['DailyRainfall'].length > 0) {
+      d['DailyRainfall'].forEach((v) => {
+        const val = parseFloat(v);
+        if (val >= 0) {
+          total += val;
+        }
+      });
+      if (district[d['District']] == null) {
+        district[d['District']] = 0;
+      }
+      district[d['District']] += total;
+    }
+  });
+  console.log('Total rainfall for 6 consecutive days:');
+  for (var dis in district) {
+    console.log(dis, `${district[dis].toFixed(2)}mm`);
+  }
+})
+.catch((err) => {
+  console.error(err);
+});
+
+```
