@@ -16,6 +16,8 @@ class RainAndRiver {
       $res = $client->get('/wp-content/themes/shapely/agency/searchresultrainfall.php', ['query' => ['state' => $state, 'district' => 'ALL', 'station' => 'ALL', 'language' => '1', 'loginStatus' => '0'], 'debug' => false]);
       $html = '<!DOCTYPE html><html><body>'.(string) $res->getBody().'</body></html>';
       $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+      $js = '<script>function calculate(){var t=new URL(document.location.toString());t.searchParams.set("html",0),fetch(t.toString()).then(t=>t.json()).then(t=>{console.clear();const a={};t.data.forEach(t=>{var o=0;if(null!=t.DailyRainfall&&t.DailyRainfall.length>0){if(t.DailyRainfall.forEach(t=>{const a=parseFloat(t);a>=0&&(o+=a)}),null==a[t.District]){var l=parseFloat(t.RainfallfromMidnight);a[t.District]=l>=0?l:0}a[t.District]+=o}});const o=new Date;for(var l in console.log(`Total rainfall for 7 consecutive days(${o.getDate()}/${o.getMonth()+1} - ${o.getDate()-6}/${o.getMonth()+1}):`),a)console.log(l,`${a[l].toFixed(2)}mm`)}).catch(t=>{console.error(t)})}</script>';
+      $html = preg_replace('#<body(.*?)</body>#is', '<body$1'.$js.'</body>', $html);
       if ($raw)
         return $html;
       $crawler = new Crawler($html);
