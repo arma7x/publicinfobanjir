@@ -71,7 +71,7 @@ https://malaysiaapi.herokuapp.com/banjir/v1/rain?state=KEL&html=1
 
 ```
 
-## Extra:
+## Extra(Total rainfall for 6 consecutive days):
 
 ```
 var url = new URL(document.location.toString());
